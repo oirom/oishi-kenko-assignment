@@ -1,13 +1,15 @@
 package com.oishikenko.android.recruitment.feature.list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -18,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.oishikenko.android.recruitment.feature.R
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalLifecycleComposeApi::class)
@@ -26,7 +30,7 @@ import com.oishikenko.android.recruitment.feature.R
 fun RecipeListScreen(
     viewModel: RecipeListViewModel = hiltViewModel()
 ) {
-    val cookingRecords by viewModel.cookingRecords.collectAsStateWithLifecycle()
+    val cookingRecords = viewModel.cookingRecords.collectAsLazyPagingItems()
 
     Scaffold { innerPadding ->
         Column {
@@ -62,12 +66,45 @@ fun RecipeListScreen(
                     .fillMaxWidth()
                     .padding(innerPadding)
                     .consumedWindowInsets(innerPadding)
-                ) {
-                    items(cookingRecords) {
-                    RecipeListItem(it)
+            ) {
+                items(cookingRecords) { item ->
+                    item?.let { RecipeListItem(cookingRecord = it) }
+                }
+
+                when (cookingRecords.loadState.append) {
+                    is LoadState.NotLoading -> Unit
+                    is LoadState.Loading -> {
+                        item {
+                            LoadingItem()
+                        }
+                    }
+                    is LoadState.Error -> {
+                        item {
+
+                        }
+                    }
+                    else -> {}
                 }
             }
         }
+    }
+}
+
+@Composable
+fun LoadingItem() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        contentAlignment = Center
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .width(42.dp)
+                .height(42.dp)
+                .padding(8.dp),
+            strokeWidth = 5.dp
+        )
     }
 }
 
