@@ -28,7 +28,8 @@ import com.oishikenko.android.recruitment.feature.R
 @OptIn(ExperimentalLayoutApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RecipeListScreen(
-    viewModel: RecipeListViewModel = hiltViewModel()
+    viewModel: RecipeListViewModel = hiltViewModel(),
+    onNavigateToDetail: () -> Unit
 ) {
     val cookingRecords = viewModel.cookingRecords.collectAsLazyPagingItems()
 
@@ -68,7 +69,12 @@ fun RecipeListScreen(
                     .consumedWindowInsets(innerPadding)
             ) {
                 items(cookingRecords) { item ->
-                    item?.let { RecipeListItem(cookingRecord = it) }
+                    item?.let {
+                        RecipeListItem(
+                            cookingRecord = it,
+                            onNavigateToDetail = onNavigateToDetail
+                        )
+                    }
                 }
 
                 when (cookingRecords.loadState.append) {
@@ -112,6 +118,8 @@ fun LoadingItem() {
 @Composable
 fun PreviewRecipeListScreen(){
     MaterialTheme {
-        RecipeListScreen()
+        RecipeListScreen(
+            onNavigateToDetail = { }
+        )
     }
 }

@@ -2,6 +2,7 @@ package com.oishikenko.android.recruitment.feature.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -13,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,7 +25,8 @@ import java.util.*
 
 @Composable
 fun RecipeListItem(
-    cookingRecord: CookingRecord
+    cookingRecord: CookingRecord,
+    onNavigateToDetail: () -> Unit
 ) {
     val displayRecipeType : Map<String, String> = mapOf(
         "soup" to "スープ",
@@ -44,7 +45,7 @@ fun RecipeListItem(
     Surface(
         shape = MaterialTheme.shapes.small,
         modifier = Modifier
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -56,6 +57,9 @@ fun RecipeListItem(
                 )
                 .background(
                     color = Color(0xFFFFFFFF),
+                )
+                .clickable(
+                    onClick = onNavigateToDetail
                 )
             ,
         ) {
@@ -110,6 +114,7 @@ fun PreviewRecipeListItem() {
             comment = "豚肉のコクとごぼうの香り、野菜の甘みで奥行きのある味わい。",
             recipeType = "soup",
             recordedAt = "2018-05-01 17:57:31"
-        )
+        ),
+        onNavigateToDetail = { }
     )
 }
