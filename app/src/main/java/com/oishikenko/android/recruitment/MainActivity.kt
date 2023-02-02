@@ -30,15 +30,31 @@ class MainActivity : ComponentActivity() {
 fun RecipeAppNavHost() {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = "recipe_list") {
-        composable("recipe_list") {
-            RecipeListScreen(
-                onNavigateToDetail = { navController.navigate("recipe_detail") }
-            )
+    NavHost(navController, startDestination = "recipeList") {
+        composable("recipeList") {
+            RecipeListScreen { comment, imageUrl, recipeType, recordedAt ->
+                navController.navigate("recipeDetail/$comment/$imageUrl/$recipeType/$recordedAt")
+            }
         }
-        composable("recipe_detail") {
+        composable(
+            route = "recipeDetail/{comment}/{imageUrl}/{recipeType}/{recordedAt}",
+            arguments = listOf(
+                navArgument("comment") { type = NavType.StringType },
+                navArgument("imageUrl") { type = NavType.StringType },
+                navArgument("recipeType") { type = NavType.StringType },
+                navArgument("recordedAt") { type = NavType.StringType } )
+        ) {  navBackStackEntry ->
+            val comment = navBackStackEntry.arguments?.getString("comment") ?: ""
+            val imageUrl = navBackStackEntry.arguments?.getString("imageUrl") ?: ""
+            val recipeType = navBackStackEntry.arguments?.getString("recipeType") ?: ""
+            val recordedAt = navBackStackEntry.arguments?.getString("recordedAt") ?: ""
+
             RecipeDetailScreen(
-                onNavigateToList = { navController.popBackStack() }
+                onNavigateToList = { navController.popBackStack() },
+                comment = comment,
+                imageUrl = imageUrl,
+                recipeType = recipeType,
+                recordedAt = recordedAt
             )
         }
     }

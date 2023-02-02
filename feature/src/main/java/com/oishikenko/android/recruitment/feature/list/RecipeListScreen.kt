@@ -29,7 +29,7 @@ import com.oishikenko.android.recruitment.feature.R
 @Composable
 fun RecipeListScreen(
     viewModel: RecipeListViewModel = hiltViewModel(),
-    onNavigateToDetail: () -> Unit
+    onNavigateToDetail: (String, String, String, String) -> Unit = { _,_,_,_ -> }
 ) {
     val cookingRecords = viewModel.cookingRecords.collectAsLazyPagingItems()
 
@@ -54,7 +54,7 @@ fun RecipeListScreen(
                     modifier = Modifier.size(4.dp) /* from Figma inspect */
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.header_image),
+                    painter = painterResource(id = R.drawable.header),
                     contentDescription = "header_image",
                     modifier = Modifier
                         .height(64.dp) /* from Figma inspect */
@@ -118,8 +118,6 @@ fun LoadingItem() {
 @Composable
 fun PreviewRecipeListScreen(){
     MaterialTheme {
-        RecipeListScreen(
-            onNavigateToDetail = { }
-        )
+        RecipeListScreen()
     }
 }

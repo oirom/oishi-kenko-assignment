@@ -26,7 +26,7 @@ import java.util.*
 @Composable
 fun RecipeListItem(
     cookingRecord: CookingRecord,
-    onNavigateToDetail: () -> Unit
+    onNavigateToDetail: (String, String, String, String) -> Unit = { _,_,_,_ -> }
 ) {
     val displayRecipeType : Map<String, String> = mapOf(
         "soup" to "スープ",
@@ -59,7 +59,16 @@ fun RecipeListItem(
                     color = Color(0xFFFFFFFF),
                 )
                 .clickable(
-                    onClick = onNavigateToDetail
+                    onClick = {
+                        onNavigateToDetail(
+                            cookingRecord.comment,
+                            cookingRecord.imageUrl
+                                .replace("/","%2F"),
+                            cookingRecord.recipeType,
+                            displayRecordedAt
+                                .replace("/","%2F"),
+                        )
+                    }
                 )
             ,
         ) {
@@ -114,7 +123,6 @@ fun PreviewRecipeListItem() {
             comment = "豚肉のコクとごぼうの香り、野菜の甘みで奥行きのある味わい。",
             recipeType = "soup",
             recordedAt = "2018-05-01 17:57:31"
-        ),
-        onNavigateToDetail = { }
+        )
     )
 }
