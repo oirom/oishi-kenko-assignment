@@ -28,7 +28,8 @@ import com.oishikenko.android.recruitment.feature.R
 @OptIn(ExperimentalLayoutApi::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun RecipeListScreen(
-    viewModel: RecipeListViewModel = hiltViewModel()
+    viewModel: RecipeListViewModel = hiltViewModel(),
+    onNavigateToDetail: (String, String, String, String) -> Unit = { _,_,_,_ -> }
 ) {
     val cookingRecords = viewModel.cookingRecords.collectAsLazyPagingItems()
 
@@ -53,7 +54,7 @@ fun RecipeListScreen(
                     modifier = Modifier.size(4.dp) /* from Figma inspect */
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.header_image),
+                    painter = painterResource(id = R.drawable.header),
                     contentDescription = "header_image",
                     modifier = Modifier
                         .height(64.dp) /* from Figma inspect */
@@ -68,7 +69,12 @@ fun RecipeListScreen(
                     .consumedWindowInsets(innerPadding)
             ) {
                 items(cookingRecords) { item ->
-                    item?.let { RecipeListItem(cookingRecord = it) }
+                    item?.let {
+                        RecipeListItem(
+                            cookingRecord = it,
+                            onNavigateToDetail = onNavigateToDetail
+                        )
+                    }
                 }
 
                 when (cookingRecords.loadState.append) {
