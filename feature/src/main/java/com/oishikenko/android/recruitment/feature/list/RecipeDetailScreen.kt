@@ -73,9 +73,7 @@ fun RecipeDetailScreen(
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            Box(
-
-            ) {
+            Box {
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = null,
@@ -86,6 +84,13 @@ fun RecipeDetailScreen(
                     painter = painterResource(drawableId),
                     contentDescription = null,
                     modifier = Modifier
+                        .align(
+                            Alignment.BottomEnd
+                        )
+                        .padding(
+                            horizontal = 8.dp,
+                            vertical = 8.dp
+                        )
                         .height(36.dp)
                         .width(98.dp)
                 )
@@ -124,7 +129,7 @@ fun PreviewRecipeDetailScreen() {
         RecipeDetailScreen(
             onNavigateToList = {},
             comment = "comment",
-            imageUrl = "https://www.google.com",
+            imageUrl = "",
             recipeType = "recipeType",
             recordedAt = "recordedAt"
         )
