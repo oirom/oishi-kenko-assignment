@@ -43,22 +43,22 @@ fun RecipeListScreen(
                 Text(
                     text = stringResource(id = R.string.cooking_records_title),
                     color = Color(0xFF333333),
-                    fontSize = 20.sp, /* from Figma inspect *//* TODO: sp?? dp?? */
-                    fontWeight = FontWeight(700), /* from Figma inspect */
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight(700),
                     /* TODO: fontFamily('Noto Sans JP') */
                     modifier = Modifier
                         .height(29.dp)
                         .width(160.dp)
                 )
                 Spacer(
-                    modifier = Modifier.size(4.dp) /* from Figma inspect */
+                    modifier = Modifier.size(4.dp)
                 )
                 Image(
                     painter = painterResource(id = R.drawable.header),
                     contentDescription = "header_image",
                     modifier = Modifier
-                        .height(64.dp) /* from Figma inspect */
-                        .width(66.72.dp) /* from Figma inspect */
+                        .height(64.dp)
+                        .width(66.72.dp)
                 )
             }
 

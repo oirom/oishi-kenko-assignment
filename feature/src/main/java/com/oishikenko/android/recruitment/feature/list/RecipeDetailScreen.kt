@@ -1,6 +1,7 @@
 package com.oishikenko.android.recruitment.feature.list
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -9,7 +10,9 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,7 +76,16 @@ fun RecipeDetailScreen(
                 .fillMaxWidth()
                 .padding(innerPadding)
         ) {
-            Box {
+            Box(
+                modifier = Modifier
+                    .aspectRatio(1F)
+                    .clip(
+                        RectangleShape
+                    )
+                    .background(
+                        Color.LightGray
+                    )
+            ) {
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = null,
@@ -129,9 +141,9 @@ fun PreviewRecipeDetailScreen() {
         RecipeDetailScreen(
             onNavigateToList = {},
             comment = "comment",
-            imageUrl = "",
-            recipeType = "recipeType",
-            recordedAt = "recordedAt"
+            imageUrl = "https://cooking-records.ex.oishi-kenko.com/images/1.jpg",
+            recipeType = "soup",
+            recordedAt = "2023/2/3 17:00"
         )
     }
 }

@@ -9,7 +9,7 @@ class CookingRecordsRepositoryImpl @Inject constructor (
     var cookingRecordsNetworkApi: CookingRecordsNetworkApi
 ): CookingRecordsRepository {
     override suspend fun getCookingRecords(offset: Int, limit: Int): CookingRecords {
-        delay(3000L)
+        delay(2000L)
         return cookingRecordsNetworkApi.getCookingRecords(offset = offset, limit = limit)
     }
 }

@@ -98,15 +98,15 @@ fun RecipeListItem(
                 Text(
                     text = displayRecipeType[cookingRecord.recipeType].toString(),
                     color = Color(0xFF333333),
-                    fontSize = 14.sp, /* from Figma inspect *//* TODO: sp?? dp?? */
-                    fontWeight = FontWeight(700), /* from Figma inspect */
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(700),
                     /* TODO: fontFamily('Noto Sans JP') */
                 )
                 Text(
                     text = displayRecordedAt,
                     color = Color(0xFF676767),
-                    fontSize = 14.sp, /* from Figma inspect *//* TODO: sp?? dp?? */
-                    fontWeight = FontWeight(400), /* from Figma inspect */
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight(400),
                     /* TODO: fontFamily('Noto Sans JP') */
                 )
             }
