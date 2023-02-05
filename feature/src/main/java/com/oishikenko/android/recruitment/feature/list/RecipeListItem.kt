@@ -34,9 +34,9 @@ fun RecipeListItem(
         "side_dish" to "副菜"
     )
 
-    val simpleDateFormatWithHyphen = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-    val date : Date = simpleDateFormatWithHyphen.parse(cookingRecord.recordedAt) as Date
-    val simpleDateFormatWithSlash = SimpleDateFormat("yyyy/MM/dd hh:mm")
+    val simpleDateFormatWithHyphen = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val date: Date = simpleDateFormatWithHyphen.parse(cookingRecord.recordedAt) as Date
+    val simpleDateFormatWithSlash = SimpleDateFormat("yyyy/MM/dd HH:mm")
     val displayRecordedAt: String = simpleDateFormatWithSlash.format(date)
 
     Spacer(
